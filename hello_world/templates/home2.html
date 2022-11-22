@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<body>
+
+<div class="container1">
+
+{% include "header.jinja"%}
+
+    <div class="container2">
+    <h1>Hallo <span class="rot_text_h1">{{ name }}</span>,<br></h1>
+    <h2>willkommen zurück!</h2>
+    </div>
+
+
+
+    <div class="container2">
+        <h3>Neuer Eintrag verfassen:</h3>
+    </div>
+
+    <div class="container4">
+        <a class="item1" href="#cardio">
+            <img src="hehe.jpg" style="width:30px;height:30px;">
+            cardio
+        </a>
+        <a class="item1" href="#push">
+            <img src="https://i.pinimg.com/236x/79/18/bd/7918bd309f6324716188106c6445a5ea.jpg" style="width:30px;height:30px;">
+            push
+        </a>
+        <a class="item1" href="#pull">
+            <img src="https://i.pinimg.com/236x/79/18/bd/7918bd309f6324716188106c6445a5ea.jpg" style="width:30px;height:30px;">
+            pull
+        </a>
+        <a class="item1" href="#legs">
+            <img src="https://i.pinimg.com/236x/79/18/bd/7918bd309f6324716188106c6445a5ea.jpg" style="width:30px;height:30px;">
+            legs
+        </a>
+        <a class="item1" href="#abs">
+            <img src="https://i.pinimg.com/236x/79/18/bd/7918bd309f6324716188106c6445a5ea.jpg" style="width:30px;height:30px;">
+            abs
+        </a>
+    </div>
+
+
+
+
+
+</div>
+
+{% include "footer.jinja"%}
+</body>
+
+</html>

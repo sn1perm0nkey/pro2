@@ -1,0 +1,307 @@
+:root {
+  --schwarz: #333333;
+  --weiss: #FEFEFE;
+  --rot: #d21d34;
+}
+
+body {
+    background-color: #333333;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    padding: 14px;
+}
+h1 {
+    font-family: Albert Sans;
+    color: #FEFEFE;
+    font-weight: bold;
+    font-size: 48px;
+
+}
+
+.rot_text_h1 {
+    font-family: Albert Sans;
+    color: #d21d34;
+    font-weight: bold;
+    font-size: 48px;
+}
+
+h2 {
+    font-family: Albert Sans;
+    color: #FEFEFE;
+    font-weight: bold;
+    font-size: 36px;
+    margin-top: -30px;
+}
+
+h3 {
+    font-family: Albert Sans;
+    color: #FEFEFE;
+    font-weight: bold;
+    font-size: 24px;
+    margin-top: 0;
+}
+
+h4 {
+    font-family: Albert Sans;
+    color: #FEFEFE;
+    font-weight: normal;
+    font-size: 12px;
+    padding: 0px;
+    margin-top: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  /*background-color: #444444;
+  */
+  font-family: albert sans;
+  font-weight: normal;
+  font-size: 24px;
+}
+
+li {
+  display: inline;
+  float: left;
+  /*border-right: 1px solid #bbb;
+  */
+}
+
+li:last-child {
+  border-right: none;
+}
+
+
+li a {
+  display: block;
+  color: #FEFEFE;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+li a:hover {
+  /*background-color: #222222;
+  */
+  color: #AAAAAA;
+}
+
+.active {
+  color: #d21d34;
+  font-weight: bold;
+}
+
+form {
+    font-family: Albert Sans;
+    color: #FEFEFE;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+
+}
+
+
+input[type=text], select, textarea, input[type=number], input[type=date] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  resize: none;
+  font-family: Albert Sans;
+  font-weight: bold;
+  font-size: 16px;
+  background-color: #FEFEFE;
+}
+
+input[type=radio] {
+    appearance: none;
+    width: 20px;
+	height: 20px;
+    border: 2px solid #ccc;
+	border-radius: 50%;
+	background-clip: content-box;
+	padding: 3px;
+	vertical-align: middle;
+}
+
+input[type=radio]:checked {
+    background-color: #d21d34;
+}
+
+option {
+    font-size: 16px;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+input[name=author] {
+    color: #666666;
+}
+
+input[type=submit] {
+  background-color: #d21d34;
+  color: #FEFEFE;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  float: right;
+  transition: 0.5s;
+  font-family: Albert Sans;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 0px;
+}
+
+input[type=submit]:hover {
+    border-radius:20px
+}
+
+.container1 {
+    width: 60%;
+    margin-left: 20%;
+    display: flex;
+    flex-direction: column;
+    column-gap: 0px;
+    min-height: 92vh;
+}
+
+.container2 {
+    margin: 14px 14px 0px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.container3 {
+    margin: 0px 7px 14px 7px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.container4 {
+    margin: 0px 7px 0px 7px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+}
+
+.footer {
+    margin: 14px 14px 14px 14px;
+    width: 60%;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+}
+
+.row {
+    min-height: 55px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin: left;
+}
+
+.col-75 {
+  float: right;
+  width: 75%;
+  margin: left;
+}
+
+
+
+.item1 {
+    display: flex;
+    background-color: #D21D34;
+    min-width: 30%;
+    flex-grow: 1;
+    flex-direction: column;
+    margin: 14px 7px 0px 7px;
+    padding: 10px;
+    align-items: center;
+    border-radius: 20px;
+    transition: 0.5s ease;
+    justify-content: center;
+
+    text-decoration: none;
+    font-family: Albert Sans;
+    color: #FEFEFE;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.item1:hover {
+    background-color: #C51B32;
+    border-radius:40px;
+}
+
+.item2 {
+    margin: 14px 7px 0px 7px;
+    display: flex;
+    background-color: #D21D34;
+    width: 50%;
+    padding: 10px;
+    align-items: center;
+    border-radius: 20px;
+    transition: 0.5s ease;
+    flex-direction: column;
+
+    text-decoration: none;
+    font-family: Albert Sans;
+    color: #FEFEFE;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.item2:hover {
+    background-color: #C51B32;
+    border-radius:40px;
+}
+
+
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #FEFEFE;
+}
+
+td, th {
+  border: 1px solid #aaaaaa;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #aaaaaa;
+}
+
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .container{
+    width: 100%;
+    margin-top: 0;
+  }
+
+
+
+
+}

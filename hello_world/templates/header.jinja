@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="icon" href="../images/hehe.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link href='https://fonts.googleapis.com/css?family=Albert Sans' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Ultra' rel='stylesheet'>
+
+</head>
+
+<body>
+
+    <ul>
+      <li><a class="active" href="{{ url_for('homescreen1')}}">new entry</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li style="float:right"><a href="#anmelden">{{ username }}</a></li>
+    </ul>
+
+</body>

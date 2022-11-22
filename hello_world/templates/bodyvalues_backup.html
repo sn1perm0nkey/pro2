@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<body>
+
+<div class="container1">
+  {% include "header.jinja"%}
+  <div class="container2">
+    <h1>Hallo <span class="rot_text_h1">{{ name }}</span>,<br></h1>
+    <h2>willkommen zurück!</h2>
+  </div>
+
+<div>
+    <div class="container2">
+      <h3>Neuer Eintrag verfassen:</h3>
+    </div>
+
+    <div class="container2">
+      <form method="POST">
+      <div class="row">
+        <div class="col-25">
+          <label for="fname1">Vorname</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="fname1" name="vorname">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="fname2">Erhielt rote Karte</label>
+        </div>
+        <div class="col-75">
+          <div class="toggle">
+            <input type="radio" name="red_card" id="sizeWeight" checked="checked" />
+            <label for="sizeWeight">Nein</label>
+            <input type="radio" name="red_card" id="sizeDimensions" />
+            <label for="sizeDimensions">Ja</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="fname3">Anzahl begangener Fouls</label>
+        </div>
+        <div class="col-75">
+          <input type="number" id="fname3" name="name" value="0">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="fname4">Anzahl gespielter Pässe</label>
+        </div>
+        <div class="col-75">
+          <input type="number" id="fname4" name="name" value="0">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="fname5">Angekommene Pässe (%)</label>
+        </div>
+        <div class="col-75">
+          <input type="number" id="fname5" name="name" value="0">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="fname6">Gewonnene Zweikämpfe</label>
+        </div>
+        <div class="col-75">
+          <input type="number" id="fname6" name="name" value="0%">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="fname7">Nachname</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="fname7" name="nachname">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="fname8">Name</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="fname8" name="name">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="fname9">Name</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="fname9" name="name">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="fname10">Name</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="fname10" name="name">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="fname11">Autor</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="fname11" name="author" value="{{ name }}" readonly>
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+          <div class="col-75">
+            <input type="submit" value="Submit">
+          </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% include "footer.jinja"%}
+</div>
+</body>
+
+</html>

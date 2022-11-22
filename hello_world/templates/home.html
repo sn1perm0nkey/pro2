@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<body>
+
+<div class="container1">
+
+{% include "header.jinja"%}
+
+    <div class="container2">
+    <h1>Hallo <span class="rot_text_h1">{{ name }}</span>,<br></h1>
+    <h2>willkommen zurück!</h2>
+    </div>
+
+
+
+    <div class="container2">
+        <h3>Neuer Eintrag verfassen:</h3>
+    </div>
+
+    <div class="container3">
+        <a class="item2" href="home2">
+            <img src="../images/hehe.png" style="width:30px;height:30px;">
+            training
+        </a>
+        <a class="item2" href="bodyvalues">
+            <img src="https://i.pinimg.com/236x/79/18/bd/7918bd309f6324716188106c6445a5ea.jpg" style="width:30px;height:30px;">
+            body values
+        </a>
+    </div>
+
+
+
+
+
+</div>
+
+{% include "footer.jinja"%}
+</body>
+
+</html>
