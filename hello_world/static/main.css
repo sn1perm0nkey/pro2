@@ -249,6 +249,7 @@ input[type=submit]:hover {
 .item1:hover {
     background-color: #C51B32;
     border-radius:40px;
+    transform: scale(0.95);
 }
 
 .item2 {
@@ -272,6 +273,7 @@ input[type=submit]:hover {
 .item2:hover {
     background-color: #C51B32;
     border-radius:40px;
+    transform: scale(0.95);
 }
 
 

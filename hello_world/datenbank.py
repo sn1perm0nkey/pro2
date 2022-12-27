@@ -6,14 +6,14 @@ def auslesen():
         inhalt_string = open_file.read()
     return inhalt_string
 
-def abspeichern(vorname, nachname):
+def abspeichern(datum, gewicht):
     with open("database.csv", "r") as open_file:
         inhalt_string = open_file.read()
         inhalt = ast.literal_eval(str(inhalt_string))
         open_file.close()
 
     if vorname not in inhalt.items():
-        new_content = {vorname: nachname}
+        new_content = {bodyfat: gewicht}
         inhalt.update(new_content)
         with open("database.csv", "w") as write_file:
             inhalt_updated = json.dumps(inhalt)
