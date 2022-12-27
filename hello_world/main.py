@@ -3,7 +3,7 @@ from flask import render_template
 from flask import request
 import plotly.express as px
 from plotly.offline import plot
-
+import ast
 import random
 
 
@@ -43,6 +43,27 @@ def homescreen1():
         ausgewaehlter_name = random.choice(auswahl)
         return render_template('index.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home")
 
+
+@app.route("/index2", methods=["GET", "POST"])
+def homescreen2():
+    if request.method == "GET":
+        inhalt_string = auslesen()
+        inhalt = ast.literal_eval(str(inhalt_string))
+        neue_liste = []
+        for eintrag in inhalt.values():
+            test = {}
+            test.update(eintrag)
+            neue_liste2 = []
+            for bezeichnung, wert in test.items():
+                neue_liste2.append([bezeichnung, wert])
+            neue_liste.append(neue_liste2)
+
+        auswahl = ["Robin"]
+        auswahl_username = ["grafrob"]
+        ausgewaehlter_username = random.choice(auswahl_username)
+        ausgewaehlter_name = random.choice(auswahl)
+        return render_template('index2.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home2", liste=neue_liste)
+
 @app.route('/bodyvalues', methods=["GET", "POST"])
 def hello_world():
     if request.method == "GET":
@@ -59,7 +80,7 @@ def hello_world():
         tbw = request.form['tbw']
         muskeln = request.form['muskeln']
         bmi = request.form['bmi']
-        abspeichern(bodyfat, gewicht)
+        abspeichern(datum, gewicht, bodyfat, tbw, muskeln, bmi)
         return "ok"
 
 

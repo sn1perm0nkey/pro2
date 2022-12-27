@@ -1,26 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<body>
+
+<div class="container1">
+
 {% include "header.jinja"%}
 
-
-  <div class="container">
+  <div class="container2">
     <table>
-  <tr>
-    <th>Vorname</th>
-    <th>Nachname</th>
-  </tr>
-      {% for eintrag in liste %}
-  <tr>
-    <td>{{ eintrag[0] }}</td>
-    <td>{{ eintrag[1] }}</td>
-  </tr>
-{% endfor %}
-</table>
+      <tr>
+        <th>Datum</th>
+        <th>Gewicht</th>
+        <th>Bodyfat</th>
+        <th>tbw</th>
+        <th>Muskeln</th>
+        <th>BMI</th>
+      </tr>
+          {% for eintrag in liste %}
+      <tr>
+        <td>{{ eintrag[0][1] }}</td>
+        <td>{{ eintrag[1][1] }}</td>
+        <td>{{ eintrag[2][1] }}</td>
+        <td>{{ eintrag[3][1] }}</td>
+        <td>{{ eintrag[4][1] }}</td>
+        <td>{{ eintrag[5][1] }}</td>
+      </tr>
+    {% endfor %}
+    </table>
 
   </div>
 
+</div>
 
 {% include "footer.jinja"%}
 </body>
+
 </html>
