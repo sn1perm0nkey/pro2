@@ -146,8 +146,13 @@ def grafik():
 
     div = plot(fig, output_type="div")
 
+    auswahl = ["Robin"]
+    auswahl_username = ["grafrob"]
+    ausgewaehlter_username = random.choice(auswahl_username)
+    ausgewaehlter_name = random.choice(auswahl)
 
-    return render_template("viz.html", barchart=div, seitentitel="Chart")
+
+    return render_template("viz.html", barchart=div, name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Chart")
 
 
 

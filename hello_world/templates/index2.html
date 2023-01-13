@@ -9,35 +9,35 @@
 
   <div class="container2">
     <form method="POST">
+      <div style="overflow-x:auto;">
     <table>
       <tr>
-        <th style="border-left: 1px solid #eee;" class="align-middle">Auswählen</th>
-        <th>#</th>
         <th>Datum</th>
         <th>Gewicht</th>
         <th>Bodyfat</th>
         <th>tbw</th>
         <th>Muskeln</th>
         <th>BMI</th>
+        <th>Auswählen</th>
       </tr>
           {% for eintrag in liste %}
       <tr>
-        <td><input type="checkbox" id="nummer_del" name="nummer_del" value="{{ eintrag[6][1] }}"></td>
-        <td>{{ eintrag[6][1] }}</td>
         <td>{{ eintrag[0][1] }}</td>
         <td>{{ eintrag[1][1] }}</td>
         <td>{{ eintrag[2][1] }}</td>
         <td>{{ eintrag[3][1] }}</td>
         <td>{{ eintrag[4][1] }}</td>
         <td>{{ eintrag[5][1] }}</td>
+        <td><input type="radio" id="nummer_del" name="nummer_del" value="{{ eintrag[6][1] }}"></td>
       </tr>
     {% endfor %}
     </table>
+      </div>
     <br>
     <div>
       <div class="row">
         <div class="col-75">
-          <input type="submit" value="Submit">
+          <input type="submit" value="Angewählte Einträge löschen">
         </div>
       </div>
     </form>

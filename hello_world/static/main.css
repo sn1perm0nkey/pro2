@@ -104,11 +104,7 @@ form {
     font-size: 16px;
 }
 
-table {
-    color: #000000;
-    font-weight: normal;
-    font-size: 16px;
-}
+
 
 * {
   box-sizing: border-box;
@@ -283,23 +279,36 @@ input[type=submit]:hover {
 }
 
 
-
 table {
-  font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
-  background-color: #FEFEFE;
+  color: #ccc;
+  font-weight: normal;
+
 }
 
-td, th {
-  border: 1px solid #aaaaaa;
-  text-align: left;
-  padding: 8px;
+
+th {
+  background-color: #D21D34;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  font-size: 16px;
+  border-bottom: 1px solid #ccc;
 }
 
-tr:nth-child(even) {
-  background-color: #aaaaaa;
+td {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
 }
+
+tr:hover {
+    background-color: #000000;
+}
+
+
 
 
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
