@@ -1,11 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
 <body>
 
 <div class="container1">
-
     {% include "header.jinja"%}
-    {{ barchart | safe }}
-
+    <div class="container2">
+        {{ barchart | safe }}
+    </div>
 </div>
 
 {% include "footer.jinja"%}
 </body>
+
+</html>
