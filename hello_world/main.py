@@ -67,26 +67,46 @@ def homescreen2():
         return render_template('index2.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home2", liste=neue_liste)
 
     if request.method == "POST":
+        if 'nummer_del' in request.form:
+            print("yes")
+            nummer_del = request.form['nummer_del']
+            loeschen(nummer_del)
 
-        nummer_del= request.form['nummer_del']
-        loeschen(nummer_del)
+            inhalt_string = auslesen()
+            inhalt = ast.literal_eval(str(inhalt_string))
+            neue_liste = []
+            for eintrag in inhalt.values():
+                test = {}
+                test.update(eintrag)
+                neue_liste2 = []
+                for bezeichnung, wert in test.items():
+                    neue_liste2.append([bezeichnung, wert])
+                neue_liste.append(neue_liste2)
 
-        inhalt_string = auslesen()
-        inhalt = ast.literal_eval(str(inhalt_string))
-        neue_liste = []
-        for eintrag in inhalt.values():
-            test = {}
-            test.update(eintrag)
-            neue_liste2 = []
-            for bezeichnung, wert in test.items():
-                neue_liste2.append([bezeichnung, wert])
-            neue_liste.append(neue_liste2)
+            auswahl = ["Robin"]
+            auswahl_username = ["grafrob"]
+            ausgewaehlter_username = random.choice(auswahl_username)
+            ausgewaehlter_name = random.choice(auswahl)
+            return render_template('index2.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home2", liste=neue_liste)
 
-        auswahl = ["Robin"]
-        auswahl_username = ["grafrob"]
-        ausgewaehlter_username = random.choice(auswahl_username)
-        ausgewaehlter_name = random.choice(auswahl)
-        return render_template('index2.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home2", liste=neue_liste)
+        else:
+            inhalt_string = auslesen()
+            inhalt = ast.literal_eval(str(inhalt_string))
+            neue_liste = []
+            for eintrag in inhalt.values():
+                test = {}
+                test.update(eintrag)
+                neue_liste2 = []
+                for bezeichnung, wert in test.items():
+                    neue_liste2.append([bezeichnung, wert])
+                neue_liste.append(neue_liste2)
+
+            auswahl = ["Robin"]
+            auswahl_username = ["grafrob"]
+            ausgewaehlter_username = random.choice(auswahl_username)
+            ausgewaehlter_name = random.choice(auswahl)
+            return render_template('index2.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home2", liste=neue_liste)
+
 
 @app.route('/bodyvalues', methods=["GET", "POST"])
 def hello_world():
