@@ -22,14 +22,10 @@ def loeschen(nummer_del):
             neue_liste2.append([bezeichnung, wert])
         neue_liste.append(neue_liste2)
 
-    print(neue_liste)
     dict_del = {}
-    print(nummer_del)
     for number in neue_liste:
-        print(number)
-        print(number[6][1])
         if int(nummer_del) == int(number[6][1]):
-            print("delete this")
+            print("lol")
         else:
             dict_temp = {number[6][1]: {"datum": number[0][1],
                                       "gewicht": number[1][1],

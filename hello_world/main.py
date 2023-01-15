@@ -68,7 +68,6 @@ def homescreen2():
 
     if request.method == "POST":
         if 'nummer_del' in request.form:
-            print("yes")
             nummer_del = request.form['nummer_del']
             loeschen(nummer_del)
 
@@ -156,15 +155,101 @@ def grafik():
         liste_y.append(liste_y_add)
 
     df = pd.DataFrame(dict(
-        x=[*liste_x],
-        y=[*liste_y],
+        Datum=[*liste_x],
+        Gewicht=[*liste_y],
     ))
-    df = df.sort_values(by="x")
-    fig = px.line(df, x="x", y="y", title="Sorted Input")
+    df = df.sort_values(by="Datum")
+    fig = px.line(df, x="Datum", y="Gewicht", title="Körpergewicht in kg")
 
     fig.update_layout(autotypenumbers='convert types')
 
-    div = plot(fig, output_type="div")
+    div1 = plot(fig, output_type="div")
+
+    ######################################################################################
+
+    liste_x = []
+    liste_y = []
+    for eintrag in neue_liste:
+        liste_x_add = eintrag[0][1]
+        liste_x.append(liste_x_add)
+        liste_y_add = eintrag[2][1]
+        liste_y.append(liste_y_add)
+
+    df = pd.DataFrame(dict(
+        Datum=[*liste_x],
+        Bodyfat=[*liste_y],
+    ))
+    df = df.sort_values(by="Datum")
+    fig = px.line(df, x="Datum", y="Bodyfat", title="Bodyfat in %")
+
+    fig.update_layout(autotypenumbers='convert types')
+
+    div2 = plot(fig, output_type="div")
+
+    ######################################################################################
+
+    liste_x = []
+    liste_y = []
+    for eintrag in neue_liste:
+        liste_x_add = eintrag[0][1]
+        liste_x.append(liste_x_add)
+        liste_y_add = eintrag[3][1]
+        liste_y.append(liste_y_add)
+
+    df = pd.DataFrame(dict(
+        Datum=[*liste_x],
+        Körperwasser=[*liste_y],
+    ))
+    df = df.sort_values(by="Datum")
+    fig = px.line(df, x="Datum", y="Körperwasser", title="Körperwasser in %")
+
+    fig.update_layout(autotypenumbers='convert types')
+
+    div3 = plot(fig, output_type="div")
+
+    ######################################################################################
+
+    liste_x = []
+    liste_y = []
+    for eintrag in neue_liste:
+        liste_x_add = eintrag[0][1]
+        liste_x.append(liste_x_add)
+        liste_y_add = eintrag[3][1]
+        liste_y.append(liste_y_add)
+
+    df = pd.DataFrame(dict(
+        Datum=[*liste_x],
+        Muskeln=[*liste_y],
+    ))
+    df = df.sort_values(by="Datum")
+    fig = px.line(df, x="Datum", y="Muskeln", title="Muskeln in %")
+
+    fig.update_layout(autotypenumbers='convert types')
+
+    div4 = plot(fig, output_type="div")
+
+    ######################################################################################
+
+    liste_x = []
+    liste_y = []
+    for eintrag in neue_liste:
+        liste_x_add = eintrag[0][1]
+        liste_x.append(liste_x_add)
+        liste_y_add = eintrag[3][1]
+        liste_y.append(liste_y_add)
+
+    df = pd.DataFrame(dict(
+        Datum=[*liste_x],
+        BMI=[*liste_y],
+    ))
+    df = df.sort_values(by="Datum")
+    fig = px.line(df, x="Datum", y="BMI", title="BMI")
+
+    fig.update_layout(autotypenumbers='convert types')
+
+    div5 = plot(fig, output_type="div")
+
+
 
     auswahl = ["Robin"]
     auswahl_username = ["grafrob"]
@@ -172,7 +257,7 @@ def grafik():
     ausgewaehlter_name = random.choice(auswahl)
 
 
-    return render_template("viz.html", barchart=div, name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Chart")
+    return render_template("viz.html", barchart_gewicht=div1, barchart_bodyfat=div2, barchart_tbw=div3, barchart_muskeln=div4, barchart_bmi=div5, name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Chart")
 
 
 

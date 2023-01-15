@@ -8,7 +8,11 @@
 <div class="container1">
     {% include "header.jinja"%}
     <div class="container2">
-        {{ barchart | safe }}
+        {{ barchart_gewicht | safe }}
+        {{ barchart_bodyfat | safe }}
+        {{ barchart_tbw | safe }}
+        {{ barchart_muskeln | safe }}
+        {{ barchart_bmi | safe }}
     </div>
 </div>
 
