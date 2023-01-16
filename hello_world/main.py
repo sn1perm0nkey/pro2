@@ -159,7 +159,7 @@ def grafik():
         Gewicht=[*liste_y],
     ))
     df = df.sort_values(by="Datum")
-    fig = px.line(df, x="Datum", y="Gewicht", title="Körpergewicht in kg")
+    fig = px.line(df, x="Datum", y="Gewicht", title="Gewicht in %")
 
     fig.update_layout(autotypenumbers='convert types')
 
