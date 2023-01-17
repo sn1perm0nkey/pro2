@@ -24,7 +24,7 @@ def start():
     for eintrag in todo_liste:
         vorname, nachname = eintrag.split(",")
         neue_liste.append([vorname, nachname])
-    return render_template("index2.html", liste=neue_liste)
+    return render_template("bodyvalues_list.html", liste=neue_liste)
 
 
 @app.route("/home2", methods=["GET", "POST"])
@@ -46,7 +46,7 @@ def homescreen1():
         return render_template('index.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home")
 
 
-@app.route("/index2", methods=["GET", "POST"])
+@app.route("/bodyvalues_list", methods=["GET", "POST"])
 def homescreen2():
     if request.method == "GET":
         inhalt_string = auslesen()
@@ -64,7 +64,7 @@ def homescreen2():
         auswahl_username = ["grafrob"]
         ausgewaehlter_username = random.choice(auswahl_username)
         ausgewaehlter_name = random.choice(auswahl)
-        return render_template('index2.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home2", liste=neue_liste)
+        return render_template('bodyvalues_list.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home2", liste=neue_liste)
 
     if request.method == "POST":
         inhalt_string_len = auslesen()
@@ -113,7 +113,7 @@ def homescreen2():
         auswahl_username = ["grafrob"]
         ausgewaehlter_username = random.choice(auswahl_username)
         ausgewaehlter_name = random.choice(auswahl)
-        return render_template('index2.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home2", liste=neue_liste)
+        return render_template('bodyvalues_list.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home2", liste=neue_liste)
 
 
 
@@ -169,7 +169,7 @@ def grafik():
         Gewicht=[*liste_y],
     ))
     df = df.sort_values(by="Datum")
-    fig = px.line(df, x="Datum", y="Gewicht", title="Gewicht in %")
+    fig = px.line(df, x="Datum", y="Gewicht", title="Gewicht in kg")
 
     fig.update_layout(autotypenumbers='convert types')
 

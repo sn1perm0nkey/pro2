@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ seitentitel }}</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}"/>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon_16x16.ico') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"/>
     <link href='https://fonts.googleapis.com/css?family=Albert Sans' rel='stylesheet'/>
     <link href='https://fonts.googleapis.com/css?family=Ultra' rel='stylesheet'/>
@@ -16,7 +16,7 @@
     <ul>
       <li><a class="active" href="{{ url_for('homescreen1')}}">new entry</a></li>
       <li><a href="{{ url_for('grafik') }}">piechart</a></li>
-      <li><a href="{{ url_for('homescreen2') }}">index2</a></li>
+      <li><a href="{{ url_for('homescreen2') }}">lists</a></li>
       <li style="float:right"><a href="#anmelden">{{ username }}</a></li>
     </ul>
 
