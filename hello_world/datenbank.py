@@ -24,18 +24,17 @@ def loeschen(nummer_del):
 
     dict_del = {}
     for number in neue_liste:
-        if int(nummer_del) == int(number[6][1]):
-            print("lol")
-        else:
+        if int(nummer_del) != int(number[6][1]):
             dict_temp = {number[6][1]: {"datum": number[0][1],
-                                      "gewicht": number[1][1],
-                                      "bodyfat": number[2][1],
-                                      "tbw": number[3][1],
-                                      "muskeln": number[4][1],
-                                      "bmi": number[5][1],
-                                      "nummer": number[6][1],}
+                                        "gewicht": number[1][1],
+                                        "bodyfat": number[2][1],
+                                        "tbw": number[3][1],
+                                        "muskeln": number[4][1],
+                                        "bmi": number[5][1],
+                                        "nummer": number[6][1], }
                          }
             dict_del.update(dict_temp)
+
     inhalt.clear()
     inhalt.update(dict_del)
     with open("database.csv", "w") as write_file:
