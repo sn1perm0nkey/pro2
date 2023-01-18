@@ -31,12 +31,14 @@ def loeschen(nummer_del):
     for number in neue_liste:
         if int(nummer_del) != int(number[6][1]):
             dict_temp_keep = {number[6][1]: {"datum": number[0][1],
-                                        "gewicht": number[1][1],
-                                        "bodyfat": number[2][1],
-                                        "tbw": number[3][1],
-                                        "muskeln": number[4][1],
-                                        "bmi": number[5][1],
-                                        "nummer": number[6][1], }
+                                            "gewicht": number[1][1],
+                                            "bodyfat": number[2][1],
+                                            "tbw": number[3][1],
+                                            "muskeln": number[4][1],
+                                            "bmi": number[5][1],
+                                            "nummer": number[6][1],
+                                            "bodyfat_kg": round(float(number[2][1]) * float(number[1][1]) / 100, 1),
+                                            "muskeln_kg": round(float(number[4][1]) * float(number[1][1]) / 100, 1), }
                          }
             dict_keep.update(dict_temp_keep)
 
@@ -73,7 +75,9 @@ def loeschen_edit(nummer_del):
                                         "tbw": number[3][1],
                                         "muskeln": number[4][1],
                                         "bmi": number[5][1],
-                                        "nummer": number[6][1], }
+                                        "nummer": number[6][1],
+                                        "bodyfat_kg": round(float(number[2][1]) * float(number[1][1]) / 100, 1),
+                                        "muskeln_kg": round(float(number[4][1]) * float(number[1][1]) / 100, 1), }
                          }
             dict_del.update(dict_temp_del)
 
@@ -90,12 +94,14 @@ def abspeichern_edit(datum, gewicht, bodyfat, tbw, muskeln, bmi, nummer):
         open_file.close()
 
     new_content = {nummer: {"datum": datum,
-                                      "gewicht": gewicht,
-                                      "bodyfat": bodyfat,
-                                      "tbw": tbw,
-                                      "muskeln": muskeln,
-                                      "bmi": bmi,
-                                      "nummer": nummer,}
+                            "gewicht": gewicht,
+                            "bodyfat": bodyfat,
+                            "tbw": tbw,
+                            "muskeln": muskeln,
+                            "bmi": bmi,
+                            "nummer": nummer,
+                            "bodyfat_kg": round(float(bodyfat) * float(gewicht) / 100, 1),
+                            "muskeln_kg": round(float(muskeln) * float(gewicht) / 100, 1), }
                    }
     inhalt.update(new_content)
 
@@ -118,7 +124,9 @@ def abspeichern(datum, gewicht, bodyfat, tbw, muskeln, bmi):
                                       "tbw": tbw,
                                       "muskeln": muskeln,
                                       "bmi": bmi,
-                                      "nummer": new_entry_number,}
+                                      "nummer": new_entry_number,
+                                      "bodyfat_kg": round(float(bodyfat) * float(gewicht) / 100, 1),
+                                      "muskeln_kg": round(float(muskeln) * float(gewicht) / 100, 1), }
                    }
     inhalt.update(new_content)
     with open("database.csv", "w") as write_file:

@@ -30,14 +30,33 @@ def start():
     return render_template("bodyvalues_list.html", liste=neue_liste)
 
 
-@app.route("/home2", methods=["GET", "POST"])
-def homescreen():
+@app.route("/training", methods=["GET", "POST"])
+def training():
     if request.method == "GET":
         auswahl = ["Robin"]
         auswahl_username = ["grafrob"]
         ausgewaehlter_username = random.choice(auswahl_username)
         ausgewaehlter_name = random.choice(auswahl)
-        return render_template('home2.html', name=ausgewaehlter_name, username=ausgewaehlter_username)
+        return render_template('training.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Training")
+
+@app.route("/statistik_kategorie", methods=["GET", "POST"])
+def statistik_kategorie():
+    if request.method == "GET":
+        auswahl = ["Robin"]
+        auswahl_username = ["grafrob"]
+        ausgewaehlter_username = random.choice(auswahl_username)
+        ausgewaehlter_name = random.choice(auswahl)
+        return render_template('statistik_kategorie.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Statistik Kategorie")
+
+
+@app.route("/listen_kategorie", methods=["GET", "POST"])
+def listen_kategorie():
+    if request.method == "GET":
+        auswahl = ["Robin"]
+        auswahl_username = ["grafrob"]
+        ausgewaehlter_username = random.choice(auswahl_username)
+        ausgewaehlter_name = random.choice(auswahl)
+        return render_template('listen_kategorie.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Listen Kategorie")
 
 
 @app.route("/statistik", methods=["GET", "POST"])
@@ -47,7 +66,7 @@ def statistik():
         auswahl_username = ["grafrob"]
         ausgewaehlter_username = random.choice(auswahl_username)
         ausgewaehlter_name = random.choice(auswahl)
-        return render_template('statistik.html', name=ausgewaehlter_name, username=ausgewaehlter_username)
+        return render_template('statistik.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Statistik")
 
 
 @app.route("/listen", methods=["GET", "POST"])
@@ -57,7 +76,7 @@ def listen():
         auswahl_username = ["grafrob"]
         ausgewaehlter_username = random.choice(auswahl_username)
         ausgewaehlter_name = random.choice(auswahl)
-        return render_template('listen.html', name=ausgewaehlter_name, username=ausgewaehlter_username)
+        return render_template('listen.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Listen")
 
 
 @app.route("/index", methods=["GET", "POST"])
@@ -115,7 +134,7 @@ def hello_world1():
         auswahl_username = ["grafrob"]
         ausgewaehlter_username = random.choice(auswahl_username)
         ausgewaehlter_name = random.choice(auswahl)
-        return render_template('bodyvalues_edit.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home2", liste=neue_liste)
+        return render_template('bodyvalues_edit.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Edit Bodyvalues", liste=neue_liste)
 
 
     if request.method == "POST":
@@ -165,7 +184,7 @@ def homescreen2():
         auswahl_username = ["grafrob"]
         ausgewaehlter_username = random.choice(auswahl_username)
         ausgewaehlter_name = random.choice(auswahl)
-        return render_template('bodyvalues_list.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home2", liste=neue_liste)
+        return render_template('bodyvalues_list.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Liste Bodyvalues", liste=neue_liste)
 
     if request.method == "POST":
         inhalt_string_len = auslesen()
@@ -232,7 +251,7 @@ def homescreen2():
         auswahl_username = ["grafrob"]
         ausgewaehlter_username = random.choice(auswahl_username)
         ausgewaehlter_name = random.choice(auswahl)
-        return render_template('bodyvalues_list.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home2", liste=neue_liste)
+        return render_template('bodyvalues_list.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Liste Bodyvalues", liste=neue_liste)
 
 
 
@@ -355,6 +374,48 @@ def grafik():
 
     div5 = plot(fig, output_type="div")
 
+    ######################################################################################
+
+    liste_x = []
+    liste_y = []
+    for eintrag in neue_liste:
+        liste_x_add = eintrag[0][1]
+        liste_x.append(liste_x_add)
+        liste_y_add = eintrag[7][1]
+        liste_y.append(liste_y_add)
+
+    df = pd.DataFrame(dict(
+        Datum=[*liste_x],
+        Fettgewicht=[*liste_y],
+    ))
+    df = df.sort_values(by="Datum")
+    fig = px.line(df, x="Datum", y="Fettgewicht", title="Fettgewicht in kg")
+
+    fig.update_layout(autotypenumbers='convert types')
+
+    div6 = plot(fig, output_type="div")
+
+    ######################################################################################
+
+    liste_x = []
+    liste_y = []
+    for eintrag in neue_liste:
+        liste_x_add = eintrag[0][1]
+        liste_x.append(liste_x_add)
+        liste_y_add = eintrag[8][1]
+        liste_y.append(liste_y_add)
+
+    df = pd.DataFrame(dict(
+        Datum=[*liste_x],
+        Muskelgewicht=[*liste_y],
+    ))
+    df = df.sort_values(by="Datum")
+    fig = px.line(df, x="Datum", y="Muskelgewicht", title="Muskelgewicht in kg")
+
+    fig.update_layout(autotypenumbers='convert types')
+
+    div7 = plot(fig, output_type="div")
+
 
 
     auswahl = ["Robin"]
@@ -363,7 +424,7 @@ def grafik():
     ausgewaehlter_name = random.choice(auswahl)
 
 
-    return render_template("viz.html", barchart_gewicht=div1, barchart_bodyfat=div2, barchart_tbw=div3, barchart_muskeln=div4, barchart_bmi=div5, name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Chart")
+    return render_template("viz.html", barchart_gewicht=div1, barchart_bodyfat=div2, barchart_tbw=div3, barchart_muskeln=div4, barchart_bmi=div5, barchart_fettgewicht=div6, barchart_muskelgewicht=div7, name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Statistik Bodyvalues")
 
 
 
