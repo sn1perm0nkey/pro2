@@ -39,6 +39,27 @@ def homescreen():
         ausgewaehlter_name = random.choice(auswahl)
         return render_template('home2.html', name=ausgewaehlter_name, username=ausgewaehlter_username)
 
+
+@app.route("/statistik", methods=["GET", "POST"])
+def statistik():
+    if request.method == "GET":
+        auswahl = ["Robin"]
+        auswahl_username = ["grafrob"]
+        ausgewaehlter_username = random.choice(auswahl_username)
+        ausgewaehlter_name = random.choice(auswahl)
+        return render_template('statistik.html', name=ausgewaehlter_name, username=ausgewaehlter_username)
+
+
+@app.route("/listen", methods=["GET", "POST"])
+def listen():
+    if request.method == "GET":
+        auswahl = ["Robin"]
+        auswahl_username = ["grafrob"]
+        ausgewaehlter_username = random.choice(auswahl_username)
+        ausgewaehlter_name = random.choice(auswahl)
+        return render_template('listen.html', name=ausgewaehlter_name, username=ausgewaehlter_username)
+
+
 @app.route("/index", methods=["GET", "POST"])
 def homescreen1():
     if request.method == "GET":
