@@ -8,24 +8,27 @@
 <div class="container1">
   {% include "header.jinja"%}
   <div class="container2">
+    <div class="container2">
     <h1>Hallo <span class="rot_text_h1">{{ name }}</span>,<br></h1>
-    <h2>hier kannst du neue body values eingeben!</h2>
+    <h2>hier kannst du den body values Eintrag bearbeiten!</h2>
   </div>
 
 <div>
     <div class="container2">
-      <h3>Neuer Eintrag verfassen:</h3>
+      <h3>Eintrag bearbeiten:</h3>
     </div>
 
     <div class="container2">
       <form method="POST">
+
+      {% for eintrag in liste %}
 
       <div class="row">
         <div class="col-25">
           <label for="datum">Datum der Daten</label>
         </div>
         <div class="col-75">
-          <input type="date" id="datum" name="datum" autofocus>
+          <input type="date" id="datum" name="datum" value="{{ eintrag[0][1] }}" autofocus>
         </div>
       </div>
 
@@ -34,7 +37,7 @@
           <label for="gewicht">Gewicht in kg</label>
         </div>
         <div class="col-75">
-          <input type="number" step="0.1" id="gewicht" name="gewicht">
+          <input type="number" step="0.1" id="gewicht" name="gewicht" value="{{ eintrag[1][1] }}">
         </div>
       </div>
 
@@ -43,7 +46,7 @@
           <label for="koerperfett">Körperfett in %</label>
         </div>
         <div class="col-75">
-          <input type="number" step="0.1" id="koerperfett" name="bodyfat">
+          <input type="number" step="0.1" id="koerperfett" name="bodyfat" value="{{ eintrag[2][1] }}">
         </div>
       </div>
 
@@ -52,7 +55,7 @@
           <label for="koerperwasser">Körperwasser in %</label>
         </div>
         <div class="col-75">
-          <input type="number" step="0.1" id="koerperwasser" name="tbw">
+          <input type="number" step="0.1" id="koerperwasser" name="tbw" value="{{ eintrag[3][1] }}">
         </div>
       </div>
 
@@ -61,7 +64,7 @@
           <label for="muskelanteil">Muskelanteil in %</label>
         </div>
         <div class="col-75">
-          <input type="number" step="0.1" id="muskelanteil" name="muskeln">
+          <input type="number" step="0.1" id="muskelanteil" name="muskeln" value="{{ eintrag[4][1] }}">
         </div>
       </div>
 
@@ -70,14 +73,17 @@
           <label for="bmi">BMI</label>
         </div>
         <div class="col-75">
-          <input type="number" step="0.1" id="bmi" name="bmi">
+          <input type="number" step="0.1" id="bmi" name="bmi" value="{{ eintrag[5][1] }}">
         </div>
       </div>
+
+        {% endfor %}
 
       <br>
       <div class="row">
           <div class="col-75">
-            <input type="submit" value="Senden">
+            <input type="submit" value="Senden" style="margin-left: 10px;">
+            <li style="float: right; text-decoration: underline;"><a href="{{ url_for('homescreen2') }}">Abbrechen</a></li>
           </div>
       </div>
       </form>

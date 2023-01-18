@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect
 from flask import render_template
 from flask import request
 import plotly.express as px
@@ -10,8 +10,11 @@ import random
 
 
 from hello_world.datenbank import abspeichern
+from hello_world.datenbank import abspeichern_edit
 from hello_world.datenbank import auslesen
+from hello_world.datenbank import auslesen_del
 from hello_world.datenbank import loeschen
+from hello_world.datenbank import loeschen_edit
 
 app = Flask("Hello World")
 
@@ -46,75 +49,6 @@ def homescreen1():
         return render_template('index.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home")
 
 
-@app.route("/bodyvalues_list", methods=["GET", "POST"])
-def homescreen2():
-    if request.method == "GET":
-        inhalt_string = auslesen()
-        inhalt = ast.literal_eval(str(inhalt_string))
-        neue_liste = []
-        for eintrag in inhalt.values():
-            test = {}
-            test.update(eintrag)
-            neue_liste2 = []
-            for bezeichnung, wert in test.items():
-                neue_liste2.append([bezeichnung, wert])
-            neue_liste.append(neue_liste2)
-
-        auswahl = ["Robin"]
-        auswahl_username = ["grafrob"]
-        ausgewaehlter_username = random.choice(auswahl_username)
-        ausgewaehlter_name = random.choice(auswahl)
-        return render_template('bodyvalues_list.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home2", liste=neue_liste)
-
-    if request.method == "POST":
-        inhalt_string_len = auslesen()
-        inhalt_len = ast.literal_eval(str(inhalt_string_len))
-        if len(inhalt_len) >= 2:
-            if 'nummer_del' in request.form:
-                nummer_del = request.form['nummer_del']
-                loeschen(nummer_del)
-
-                inhalt_string = auslesen()
-                inhalt = ast.literal_eval(str(inhalt_string))
-                neue_liste = []
-                for eintrag in inhalt.values():
-                    test = {}
-                    test.update(eintrag)
-                    neue_liste2 = []
-                    for bezeichnung, wert in test.items():
-                        neue_liste2.append([bezeichnung, wert])
-                    neue_liste.append(neue_liste2)
-
-            else:
-                inhalt_string = auslesen()
-                inhalt = ast.literal_eval(str(inhalt_string))
-                neue_liste = []
-                for eintrag in inhalt.values():
-                    test = {}
-                    test.update(eintrag)
-                    neue_liste2 = []
-                    for bezeichnung, wert in test.items():
-                        neue_liste2.append([bezeichnung, wert])
-                    neue_liste.append(neue_liste2)
-
-        else:
-            inhalt_string = auslesen()
-            inhalt = ast.literal_eval(str(inhalt_string))
-            neue_liste = []
-            for eintrag in inhalt.values():
-                test = {}
-                test.update(eintrag)
-                neue_liste2 = []
-                for bezeichnung, wert in test.items():
-                    neue_liste2.append([bezeichnung, wert])
-                neue_liste.append(neue_liste2)
-
-        auswahl = ["Robin"]
-        auswahl_username = ["grafrob"]
-        ausgewaehlter_username = random.choice(auswahl_username)
-        ausgewaehlter_name = random.choice(auswahl)
-        return render_template('bodyvalues_list.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home2", liste=neue_liste)
-
 
 
 @app.route('/bodyvalues', methods=["GET", "POST"])
@@ -140,6 +74,147 @@ def hello_world():
         ausgewaehlter_username = random.choice(auswahl_username)
         ausgewaehlter_name = random.choice(auswahl)
         return render_template('bodyvalues.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Bodyvalues")
+
+
+@app.route('/bodyvalues_edit', methods=["GET", "POST"])
+def hello_world1():
+    if request.method == "GET":
+        dict_del_string = auslesen_del()
+        dict_del = ast.literal_eval(str(dict_del_string))
+        neue_liste = []
+        for eintrag in dict_del.values():
+            test = {}
+            test.update(eintrag)
+            neue_liste2 = []
+            for bezeichnung, wert in test.items():
+                neue_liste2.append([bezeichnung, wert])
+            neue_liste.append(neue_liste2)
+
+        auswahl = ["Robin"]
+        auswahl_username = ["grafrob"]
+        ausgewaehlter_username = random.choice(auswahl_username)
+        ausgewaehlter_name = random.choice(auswahl)
+        return render_template('bodyvalues_edit.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home2", liste=neue_liste)
+
+
+    if request.method == "POST":
+        dict_del_string = auslesen_del()
+        dict_del = ast.literal_eval(str(dict_del_string))
+        neue_liste = []
+        for eintrag in dict_del.values():
+            test = {}
+            test.update(eintrag)
+            neue_liste2 = []
+            for bezeichnung, wert in test.items():
+                neue_liste2.append([bezeichnung, wert])
+            neue_liste.append(neue_liste2)
+
+        for eintrag in neue_liste:
+            nummer_def = eintrag[6][1]
+
+
+        datum = request.form['datum']
+        gewicht = request.form['gewicht']
+        bodyfat = request.form['bodyfat']
+        tbw = request.form['tbw']
+        muskeln = request.form['muskeln']
+        bmi = request.form['bmi']
+        nummer = nummer_def
+        abspeichern_edit(datum, gewicht, bodyfat, tbw, muskeln, bmi, nummer)
+
+        return redirect("http://127.0.0.1:5000/bodyvalues_list", code=302)
+
+
+
+@app.route("/bodyvalues_list", methods=["GET", "POST"])
+def homescreen2():
+    if request.method == "GET":
+        inhalt_string = auslesen()
+        inhalt = ast.literal_eval(str(inhalt_string))
+        neue_liste = []
+        for eintrag in inhalt.values():
+            test = {}
+            test.update(eintrag)
+            neue_liste2 = []
+            for bezeichnung, wert in test.items():
+                neue_liste2.append([bezeichnung, wert])
+            neue_liste.append(neue_liste2)
+
+        auswahl = ["Robin"]
+        auswahl_username = ["grafrob"]
+        ausgewaehlter_username = random.choice(auswahl_username)
+        ausgewaehlter_name = random.choice(auswahl)
+        return render_template('bodyvalues_list.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home2", liste=neue_liste)
+
+    if request.method == "POST":
+        inhalt_string_len = auslesen()
+        inhalt_len = ast.literal_eval(str(inhalt_string_len))
+        if len(inhalt_len) >= 2:
+            if 'löschen' in request.form and "nummer_del" in request.form:
+                nummer_del = request.form['nummer_del']
+                loeschen(nummer_del)
+
+                inhalt_string = auslesen()
+                inhalt = ast.literal_eval(str(inhalt_string))
+                neue_liste = []
+                for eintrag in inhalt.values():
+                    test = {}
+                    test.update(eintrag)
+                    neue_liste2 = []
+                    for bezeichnung, wert in test.items():
+                        neue_liste2.append([bezeichnung, wert])
+                    neue_liste.append(neue_liste2)
+
+            elif 'bearbeiten' in request.form and "nummer_del" in request.form:
+                nummer_del = request.form['nummer_del']
+                loeschen_edit(nummer_del)
+
+                dict_del_string = auslesen_del()
+                dict_del = ast.literal_eval(str(dict_del_string))
+                neue_liste = []
+                for eintrag in dict_del.values():
+                    test = {}
+                    test.update(eintrag)
+                    neue_liste2 = []
+                    for bezeichnung, wert in test.items():
+                        neue_liste2.append([bezeichnung, wert])
+                    neue_liste.append(neue_liste2)
+
+                return redirect("http://127.0.0.1:5000/bodyvalues_edit", code=302)
+
+
+            else:
+                    inhalt_string = auslesen()
+                    inhalt = ast.literal_eval(str(inhalt_string))
+                    neue_liste = []
+                    for eintrag in inhalt.values():
+                        test = {}
+                        test.update(eintrag)
+                        neue_liste2 = []
+                        for bezeichnung, wert in test.items():
+                            neue_liste2.append([bezeichnung, wert])
+                        neue_liste.append(neue_liste2)
+
+        else:
+            inhalt_string = auslesen()
+            inhalt = ast.literal_eval(str(inhalt_string))
+            neue_liste = []
+            for eintrag in inhalt.values():
+                test = {}
+                test.update(eintrag)
+                neue_liste2 = []
+                for bezeichnung, wert in test.items():
+                    neue_liste2.append([bezeichnung, wert])
+                neue_liste.append(neue_liste2)
+
+        auswahl = ["Robin"]
+        auswahl_username = ["grafrob"]
+        ausgewaehlter_username = random.choice(auswahl_username)
+        ausgewaehlter_name = random.choice(auswahl)
+        return render_template('bodyvalues_list.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Home2", liste=neue_liste)
+
+
+
 
 
 @app.route("/viz")
@@ -224,7 +299,7 @@ def grafik():
     for eintrag in neue_liste:
         liste_x_add = eintrag[0][1]
         liste_x.append(liste_x_add)
-        liste_y_add = eintrag[3][1]
+        liste_y_add = eintrag[4][1]
         liste_y.append(liste_y_add)
 
     df = pd.DataFrame(dict(
@@ -245,7 +320,7 @@ def grafik():
     for eintrag in neue_liste:
         liste_x_add = eintrag[0][1]
         liste_x.append(liste_x_add)
-        liste_y_add = eintrag[3][1]
+        liste_y_add = eintrag[5][1]
         liste_y.append(liste_y_add)
 
     df = pd.DataFrame(dict(
