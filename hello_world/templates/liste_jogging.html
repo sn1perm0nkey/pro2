@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<body>
+
+  <div class="container1">
+    {% include "header.jinja"%}
+
+    <div class="container2">
+      <h1>Hallo <span class="rot_text_h1">{{ name }}</span>,<br></h1>
+      <h2>hier siehst du die Einträge zu den body values!</h2>
+    </div>
+    <div class="container2">
+      <h3>Einträge body values:</h3>
+    </div>
+
+
+
+
+
+    <div class="container2">
+      <form method="POST">
+      <div style="overflow-x:auto;">
+    <table>
+      <tr>
+        <th>Datum</th>
+        <th>Gewicht in kg</th>
+        <th>Bodyfat in %</th>
+        <th>Bodyfat in kg</th>
+        <th>Körperwasser in %</th>
+        <th>Muskeln in %</th>
+        <th>Muskeln in kg</th>
+        <th>BMI</th>
+        <th>Auswählen</th>
+      </tr>
+          {% for eintrag in liste %}
+      <tr>
+        <td>{{ eintrag[0][1] }}</td>
+        <td>{{ eintrag[1][1] }}</td>
+        <td>{{ eintrag[2][1] }}</td>
+        <td>{{ eintrag[7][1] }}</td>
+        <td>{{ eintrag[3][1] }}</td>
+        <td>{{ eintrag[4][1] }}</td>
+        <td>{{ eintrag[8][1] }}</td>
+        <td>{{ eintrag[5][1] }}</td>
+        <td><input type="radio" id="id" name="nummer_del" value="{{ eintrag[6][1] }}"></td>
+      </tr>
+    {% endfor %}
+    </table>
+      </div>
+    <br>
+      <div>
+        <div class="row">
+          <div class="col-75">
+            <input type="submit" name="löschen" value="Löschen" style="margin-left: 10px;">
+            <input type="submit" name="bearbeiten" value="Bearbeiten">
+          </div>
+        </div>
+    </form>
+      </div>
+{% include "footer.jinja"%}
+    </div>
+
+</body>
+
+</html>
