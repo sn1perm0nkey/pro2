@@ -193,6 +193,7 @@ def homescreen2():
             if 'löschen' in request.form and "nummer_del" in request.form:
                 nummer_del = request.form['nummer_del']
                 loeschen(nummer_del)
+                print("haher")
 
                 inhalt_string = auslesen()
                 inhalt = ast.literal_eval(str(inhalt_string))
