@@ -730,60 +730,16 @@ def liste_bodyvalues():
         return render_template('liste_bodyvalues.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Liste Bodyvalues", liste=neue_liste)
 
 
-
-
-
-@app.route('/bodyvalues_edit', methods=["GET", "POST"])
-def bodyvalues_edit():
-    if request.method == "GET":
-        dict_del_string = auslesen_del()
-        dict_del = ast.literal_eval(str(dict_del_string))
-        neue_liste = []
-        for eintrag in dict_del.values():
-            test = {}
-            test.update(eintrag)
-            neue_liste2 = []
-            for bezeichnung, wert in test.items():
-                neue_liste2.append([bezeichnung, wert])
-            neue_liste.append(neue_liste2)
-
-        return render_template('bodyvalues_edit.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Edit Bodyvalues", liste=neue_liste)
-
-
-    if request.method == "POST":
-        dict_del_string = auslesen_del()
-        dict_del = ast.literal_eval(str(dict_del_string))
-        neue_liste = []
-        for eintrag in dict_del.values():
-            test = {}
-            test.update(eintrag)
-            neue_liste2 = []
-            for bezeichnung, wert in test.items():
-                neue_liste2.append([bezeichnung, wert])
-            neue_liste.append(neue_liste2)
-
-        for eintrag in neue_liste:
-            nummer_def = eintrag[6][1]
-
-
-        datum = request.form['datum']
-        gewicht = request.form['gewicht']
-        bodyfat = request.form['bodyfat']
-        tbw = request.form['tbw']
-        muskeln = request.form['muskeln']
-        bmi = request.form['bmi']
-        nummer = nummer_def
-        abspeichern_edit(datum, gewicht, bodyfat, tbw, muskeln, bmi, nummer)
-
-        return redirect("http://127.0.0.1:5000/liste_bodyvalues", code=302)
-
-
-
+# auf dieser seite kann der ausgewählte eintrag bei der jogging liste bearbeitet werden
 @app.route('/jogging_edit', methods=["GET", "POST"])
 def jogging_edit():
     if request.method == "GET":
+        # hier wird das dict aus "database_jogging_edit.csv" ausgelesen
         dict_del_string = auslesen_jogging_del()
+        # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
         dict_del = ast.literal_eval(str(dict_del_string))
+        # hier wird eine neue temporäre liste erstellt
+        # beim for-loop wird das dict in die neue liste eingespeist, um später die übersichtsliste mit dieser liste zu erstellen
         neue_liste = []
         for eintrag in dict_del.values():
             test = {}
@@ -793,12 +749,17 @@ def jogging_edit():
                 neue_liste2.append([bezeichnung, wert])
             neue_liste.append(neue_liste2)
 
+        # die zuvor erstellte temporäre liste wird beim return nochmals definiert, um damit im html code eine tabelle mit den daten der liste zu erstellen
         return render_template('jogging_edit.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Edit Jogging Stats", liste=neue_liste)
 
 
     if request.method == "POST":
+        # hier wird das dict aus "database_jogging_edit.csv" ausgelesen
         dict_del_string = auslesen_jogging_del()
+        # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
         dict_del = ast.literal_eval(str(dict_del_string))
+        # hier wird eine neue temporäre liste erstellt
+        # beim for-loop wird das dict in die neue liste eingespeist, um später die übersichtsliste mit dieser liste zu erstellen
         neue_liste = []
         for eintrag in dict_del.values():
             test = {}
@@ -808,31 +769,86 @@ def jogging_edit():
                 neue_liste2.append([bezeichnung, wert])
             neue_liste.append(neue_liste2)
 
+        # hier wird die aktuelle nummer des eintrags neu definiert für später
         for eintrag in neue_liste:
             nummer_def = eintrag[4][1]
 
-
+        # hier sind die einzelnen eingabefelder definiert, welche der nutzer ausfüllt
         datum = request.form['datum']
         strecke = request.form['strecke']
         zeit = request.form['zeit']
+        # hier ist die oben erneut definierte nummer des eintrags
+        # diese muss nicht neu generiert werden sondern kann übernommen werden
         nummer = nummer_def
+        # hier wird die funktion aus "datenbank.py" abgerufen
         abspeichern_jogging_edit(datum, strecke, zeit, nummer)
 
+        # nachdem "senden" gedrückt wurde, wird man zum screen von "liste_jogging.html" weitergeleitet
+        # dieser screen zeigt dann die aktualisierte liste mit dem bearbeiteten eintrag
         return redirect("http://127.0.0.1:5000/liste_jogging", code=302)
 
 
 
 
 
+@app.route('/bodyvalues_edit', methods=["GET", "POST"])
+def bodyvalues_edit():
+    if request.method == "GET":
+        # hier wird das dict aus "database_edit.csv" ausgelesen
+        dict_del_string = auslesen_del()
+        # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
+        dict_del = ast.literal_eval(str(dict_del_string))
+        # hier wird eine neue temporäre liste erstellt
+        # beim for-loop wird das dict in die neue liste eingespeist, um später die übersichtsliste mit dieser liste zu erstellen
+        neue_liste = []
+        for eintrag in dict_del.values():
+            test = {}
+            test.update(eintrag)
+            neue_liste2 = []
+            for bezeichnung, wert in test.items():
+                neue_liste2.append([bezeichnung, wert])
+            neue_liste.append(neue_liste2)
+
+        # die zuvor erstellte temporäre liste wird beim return nochmals definiert, um damit im html code eine tabelle mit den daten der liste zu erstellen
+        return render_template('bodyvalues_edit.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Edit Bodyvalues", liste=neue_liste)
 
 
+    if request.method == "POST":
+        # hier wird das dict aus "database_edit.csv" ausgelesen
+        dict_del_string = auslesen_del()
+        # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
+        dict_del = ast.literal_eval(str(dict_del_string))
+        # hier wird eine neue temporäre liste erstellt
+        # beim for-loop wird das dict in die neue liste eingespeist, um später die übersichtsliste mit dieser liste zu erstellen
+        neue_liste = []
+        for eintrag in dict_del.values():
+            test = {}
+            test.update(eintrag)
+            neue_liste2 = []
+            for bezeichnung, wert in test.items():
+                neue_liste2.append([bezeichnung, wert])
+            neue_liste.append(neue_liste2)
 
+        # hier wird die aktuelle nummer des eintrags neu definiert für später
+        for eintrag in neue_liste:
+            nummer_def = eintrag[6][1]
 
+        # hier sind die einzelnen eingabefelder definiert, welche der nutzer ausfüllt
+        datum = request.form['datum']
+        gewicht = request.form['gewicht']
+        bodyfat = request.form['bodyfat']
+        tbw = request.form['tbw']
+        muskeln = request.form['muskeln']
+        bmi = request.form['bmi']
+        # hier ist die oben erneut definierte nummer des eintrags
+        # diese muss nicht neu generiert werden sondern kann übernommen werden
+        nummer = nummer_def
+        # hier wird die funktion aus "datenbank.py" abgerufen
+        abspeichern_edit(datum, gewicht, bodyfat, tbw, muskeln, bmi, nummer)
 
-
-
-
-
+        # nachdem "senden" gedrückt wurde, wird man zum screen von "liste_bodyvalues.html" weitergeleitet
+        # dieser screen zeigt dann die aktualisierte liste mit dem bearbeiteten eintrag
+        return redirect("http://127.0.0.1:5000/liste_bodyvalues", code=302)
 
 
 
