@@ -428,16 +428,86 @@ def liste_jogging():
         # hier wird geprüft, ob die liste 2 oder mehr einträge hat
         # ist dies nicht der fall, so hat die liste nurnoch 1 eintrag
         # dies ist weiter unten nochmals wichtig, denn mit dieser information wird bestimmt, ob ein eintrag gelöscht werden kann oder nicht
-        # dadurch wird sichergestellt, dass die liste immer mindesten einen eintrag beinhaltet
+        # dadurch wird sichergestellt, dass die liste immer mindestens einen eintrag beinhaltet
         if len(inhalt_len) >= 2:
-            # zuerst wird überprüft, ob "löschen" gedrückt wurde und dabei ein eintrag überhaupt ausgewählt wurde
+            # hier wird überprüft, ob "löschen" gedrückt wurde und dabei ein eintrag überhaupt ausgewählt wurde
             if 'löschen' in request.form and "nummer_del" in request.form:
-                # "nummer_del" ist die nummer des eintrags, welcher ausgewählt wurde um zu löschen (
+                # "nummer_del" ist die nummer des eintrags, welcher ausgewählt wurde um zu löschen
+                # aus genau solchen identifizierungsgründen wird in "datenbank.py" jedem eintrag eine nummer gegeben, wenn dieser erstellt wird
                 nummer_del = request.form['nummer_del']
+                # hier wird eine funktion aus "datenbank.py" ausgeführt, um den ausgewählten eintrag zu löschen
                 loeschen_jogging(nummer_del)
 
+                # hier wird das dict aus "database_jogging.csv" nochmals ausgelesen, um die liste zu aktualisieren
                 inhalt_string = auslesen_jogging()
+                # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
                 inhalt = ast.literal_eval(str(inhalt_string))
+                # hier wird eine neue temporäre liste erstellt
+                # beim for-loop wird das dict in die neue liste eingespeist, um später die übersichtsliste mit dieser liste zu erstellen
+                neue_liste = []
+                for eintrag in inhalt.values():
+                    test = {}
+                    test.update(eintrag)
+                    neue_liste2 = []
+                    for bezeichnung, wert in test.items():
+                        neue_liste2.append([bezeichnung, wert])
+                    neue_liste.append(neue_liste2)
+
+            # hier wird überprüft, ob "bearbeiten" gedrückt wurde und dabei ein eintrag überhaupt ausgewählt wurde
+            elif 'bearbeiten' in request.form and "nummer_del" in request.form:
+                # "nummer_del" ist die nummer des eintrags, welcher ausgewählt wurde um zu bearbeiten
+                # aus genau solchen identifizierungsgründen wird in "datenbank.py" jedem eintrag eine nummer gegeben, wenn dieser erstellt wird
+                nummer_del = request.form['nummer_del']
+                # hier wird eine funktion aus "datenbank.py" ausgeführt, um den ausgewählten eintrag zu bearbeiten
+                loeschen_jogging_edit(nummer_del)
+
+
+                # hier wird das dict aus "database_jogging_edit.csv" ausgelesen, dies sind die daten des ausgewählten eintrages
+                dict_del_string = auslesen_jogging_del()
+                # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
+                dict_del = ast.literal_eval(str(dict_del_string))
+                # hier wird eine neue temporäre liste erstellt
+                # beim for-loop wird das dict in die neue liste eingespeist, um später beim bearbeiten-screen die zu bearbeitenden werte vorzugeben
+                neue_liste = []
+                for eintrag in dict_del.values():
+                    test = {}
+                    test.update(eintrag)
+                    neue_liste2 = []
+                    for bezeichnung, wert in test.items():
+                        neue_liste2.append([bezeichnung, wert])
+                    neue_liste.append(neue_liste2)
+
+                # nachdem "bearbeiten" gedrückt wurde, wird man zum screen von "jogging_edit.html" weitergeleitet
+                # dieser screen zeigt dann die werte die man bearbeiten will
+                return redirect("http://127.0.0.1:5000/jogging_edit", code=302)
+
+            # falls "löschen" oder "bearbeiten" gedrückt wurde aber kein eintrag ausgewählt wurde, wird "else" ausgeführt
+            else:
+                # hier wird das dict aus "database_jogging.csv" nochmals ausgelesen, um die liste zu aktualisieren
+                inhalt_string = auslesen_jogging()
+                # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
+                inhalt = ast.literal_eval(str(inhalt_string))
+                # hier wird eine neue temporäre liste erstellt
+                # beim for-loop wird das dict in die neue liste eingespeist, um später die übersichtsliste mit dieser liste zu erstellen
+                neue_liste = []
+                for eintrag in inhalt.values():
+                    test = {}
+                    test.update(eintrag)
+                    neue_liste2 = []
+                    for bezeichnung, wert in test.items():
+                        neue_liste2.append([bezeichnung, wert])
+                    neue_liste.append(neue_liste2)
+
+        # falls nur noch 1 eintrag in der liste vorhanden ist, kann man ihn mit diesem "elif" noch bearbeiten, jedoch nicht löschen
+        # dadurch wird sichergestellt, dass die liste immer mindestens einen eintrag beinhaltet
+        elif len(inhalt_len) == 1:
+            if 'löschen' in request.form and "nummer_del" in request.form:
+                # hier wird das dict aus "database_jogging.csv" nochmals ausgelesen, um die liste zu aktualisieren
+                inhalt_string = auslesen_jogging()
+                # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
+                inhalt = ast.literal_eval(str(inhalt_string))
+                # hier wird eine neue temporäre liste erstellt
+                # beim for-loop wird das dict in die neue liste eingespeist, um später die übersichtsliste mit dieser liste zu erstellen
                 neue_liste = []
                 for eintrag in inhalt.values():
                     test = {}
@@ -448,11 +518,19 @@ def liste_jogging():
                     neue_liste.append(neue_liste2)
 
             elif 'bearbeiten' in request.form and "nummer_del" in request.form:
+                # "nummer_del" ist die nummer des eintrags, welcher ausgewählt wurde um zu bearbeiten
+                # aus genau solchen identifizierungsgründen wird in "datenbank.py" jedem eintrag eine nummer gegeben, wenn dieser erstellt wird
                 nummer_del = request.form['nummer_del']
+                # hier wird eine funktion aus "datenbank.py" ausgeführt, um den ausgewählten eintrag zu bearbeiten
                 loeschen_jogging_edit(nummer_del)
 
+
+                # hier wird das dict aus "database_jogging_edit.csv" ausgelesen, dies sind die daten des ausgewählten eintrages
                 dict_del_string = auslesen_jogging_del()
+                # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
                 dict_del = ast.literal_eval(str(dict_del_string))
+                # hier wird eine neue temporäre liste erstellt
+                # beim for-loop wird das dict in die neue liste eingespeist, um später beim bearbeiten-screen die zu bearbeitenden werte vorzugeben
                 neue_liste = []
                 for eintrag in dict_del.values():
                     test = {}
@@ -462,36 +540,194 @@ def liste_jogging():
                         neue_liste2.append([bezeichnung, wert])
                     neue_liste.append(neue_liste2)
 
+                # nachdem "bearbeiten" gedrückt wurde, wird man zum screen von "jogging_edit.html" weitergeleitet
+                # dieser screen zeigt dann die werte die man bearbeiten will
                 return redirect("http://127.0.0.1:5000/jogging_edit", code=302)
 
-
+            # falls "löschen" oder "bearbeiten" gedrückt wurde aber kein eintrag ausgewählt wurde, wird "else" ausgeführt
             else:
-                    inhalt_string = auslesen_jogging()
-                    inhalt = ast.literal_eval(str(inhalt_string))
-                    neue_liste = []
-                    for eintrag in inhalt.values():
-                        test = {}
-                        test.update(eintrag)
-                        neue_liste2 = []
-                        for bezeichnung, wert in test.items():
-                            neue_liste2.append([bezeichnung, wert])
-                        neue_liste.append(neue_liste2)
+                # hier wird das dict aus "database_jogging.csv" nochmals ausgelesen, um die liste zu aktualisieren
+                inhalt_string = auslesen_jogging()
+                # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
+                inhalt = ast.literal_eval(str(inhalt_string))
+                # hier wird eine neue temporäre liste erstellt
+                # beim for-loop wird das dict in die neue liste eingespeist, um später die übersichtsliste mit dieser liste zu erstellen
+                neue_liste = []
+                for eintrag in inhalt.values():
+                    test = {}
+                    test.update(eintrag)
+                    neue_liste2 = []
+                    for bezeichnung, wert in test.items():
+                        neue_liste2.append([bezeichnung, wert])
+                    neue_liste.append(neue_liste2)
 
-        else:
-            inhalt_string = auslesen_jogging()
-            inhalt = ast.literal_eval(str(inhalt_string))
-            neue_liste = []
-            for eintrag in inhalt.values():
-                test = {}
-                test.update(eintrag)
-                neue_liste2 = []
-                for bezeichnung, wert in test.items():
-                    neue_liste2.append([bezeichnung, wert])
-                neue_liste.append(neue_liste2)
-
+        # die zuvor erstellte temporäre liste wird beim return nochmals definiert, um damit im html code eine tabelle mit den daten der liste zu erstellen
         return render_template('liste_jogging.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Liste Jogging", liste=neue_liste)
 
 
+@app.route("/liste_bodyvalues", methods=["GET", "POST"])
+def liste_bodyvalues():
+    if request.method == "GET":
+        # hier wird das dict aus "database.csv" ausgelesen
+        inhalt_string = auslesen()
+        # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
+        inhalt = ast.literal_eval(str(inhalt_string))
+        # hier wird eine neue temporäre liste erstellt
+        # beim for-loop wird das dict in die neue liste eingespeist, um später die übersichtsliste mit dieser liste zu erstellen
+        neue_liste = []
+        for eintrag in inhalt.values():
+            test = {}
+            test.update(eintrag)
+            neue_liste2 = []
+            for bezeichnung, wert in test.items():
+                neue_liste2.append([bezeichnung, wert])
+            neue_liste.append(neue_liste2)
+
+        # die zuvor erstellte temporäre liste wird beim return nochmals definiert, um damit im html code eine tabelle mit den daten der liste zu erstellen
+        return render_template('liste_bodyvalues.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Liste Bodyvalues", liste=neue_liste)
+
+    if request.method == "POST":
+        # hier wird das dict aus "database.csv" ausgelesen
+        inhalt_string_len = auslesen()
+        # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
+        inhalt_len = ast.literal_eval(str(inhalt_string_len))
+        # hier wird geprüft, ob die liste 2 oder mehr einträge hat
+        # ist dies nicht der fall, so hat die liste nurnoch 1 eintrag
+        # dies ist weiter unten nochmals wichtig, denn mit dieser information wird bestimmt, ob ein eintrag gelöscht werden kann oder nicht
+        # dadurch wird sichergestellt, dass die liste immer mindestens einen eintrag beinhaltet
+        if len(inhalt_len) >= 2:
+            # hier wird überprüft, ob "löschen" gedrückt wurde und dabei ein eintrag überhaupt ausgewählt wurde
+            if 'löschen' in request.form and "nummer_del" in request.form:
+                # "nummer_del" ist die nummer des eintrags, welcher ausgewählt wurde um zu löschen
+                # aus genau solchen identifizierungsgründen wird in "datenbank.py" jedem eintrag eine nummer gegeben, wenn dieser erstellt wird
+                nummer_del = request.form['nummer_del']
+                # hier wird eine funktion aus "datenbank.py" ausgeführt, um den ausgewählten eintrag zu löschen
+                loeschen(nummer_del)
+
+                # hier wird das dict aus "database.csv" nochmals ausgelesen, um die liste zu aktualisieren
+                inhalt_string = auslesen()
+                # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
+                inhalt = ast.literal_eval(str(inhalt_string))
+                # hier wird eine neue temporäre liste erstellt
+                # beim for-loop wird das dict in die neue liste eingespeist, um später die übersichtsliste mit dieser liste zu erstellen
+                neue_liste = []
+                for eintrag in inhalt.values():
+                    test = {}
+                    test.update(eintrag)
+                    neue_liste2 = []
+                    for bezeichnung, wert in test.items():
+                        neue_liste2.append([bezeichnung, wert])
+                    neue_liste.append(neue_liste2)
+
+            # hier wird überprüft, ob "bearbeiten" gedrückt wurde und dabei ein eintrag überhaupt ausgewählt wurde
+            elif 'bearbeiten' in request.form and "nummer_del" in request.form:
+                # "nummer_del" ist die nummer des eintrags, welcher ausgewählt wurde um zu bearbeiten
+                # aus genau solchen identifizierungsgründen wird in "datenbank.py" jedem eintrag eine nummer gegeben, wenn dieser erstellt wird
+                nummer_del = request.form['nummer_del']
+                # hier wird eine funktion aus "datenbank.py" ausgeführt, um den ausgewählten eintrag zu bearbeiten
+                loeschen_edit(nummer_del)
+
+                # hier wird das dict aus "database_edit.csv" ausgelesen, dies sind die daten des ausgewählten eintrages
+                dict_del_string = auslesen_del()
+                # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
+                dict_del = ast.literal_eval(str(dict_del_string))
+                # hier wird eine neue temporäre liste erstellt
+                # beim for-loop wird das dict in die neue liste eingespeist, um später beim bearbeiten-screen die zu bearbeitenden werte vorzugeben
+                neue_liste = []
+                for eintrag in dict_del.values():
+                    test = {}
+                    test.update(eintrag)
+                    neue_liste2 = []
+                    for bezeichnung, wert in test.items():
+                        neue_liste2.append([bezeichnung, wert])
+                    neue_liste.append(neue_liste2)
+
+                # nachdem "bearbeiten" gedrückt wurde, wird man zum screen von "bodyvalues_edit.html" weitergeleitet
+                # dieser screen zeigt dann die werte die man bearbeiten will
+                return redirect("http://127.0.0.1:5000/bodyvalues_edit", code=302)
+
+            # falls "löschen" oder "bearbeiten" gedrückt wurde aber kein eintrag ausgewählt wurde, wird "else" ausgeführt
+            else:
+                # hier wird das dict aus "database.csv" nochmals ausgelesen, um die liste zu aktualisieren
+                inhalt_string = auslesen()
+                # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
+                inhalt = ast.literal_eval(str(inhalt_string))
+                # hier wird eine neue temporäre liste erstellt
+                # beim for-loop wird das dict in die neue liste eingespeist, um später die übersichtsliste mit dieser liste zu erstellen
+                neue_liste = []
+                for eintrag in inhalt.values():
+                    test = {}
+                    test.update(eintrag)
+                    neue_liste2 = []
+                    for bezeichnung, wert in test.items():
+                        neue_liste2.append([bezeichnung, wert])
+                    neue_liste.append(neue_liste2)
+
+
+        # falls nur noch 1 eintrag in der liste vorhanden ist, kann man ihn mit diesem "elif" noch bearbeiten, jedoch nicht löschen
+        # dadurch wird sichergestellt, dass die liste immer mindestens einen eintrag beinhaltet
+        elif len(inhalt_len) == 1:
+            if 'löschen' in request.form and "nummer_del" in request.form:
+                # hier wird das dict aus "database.csv" nochmals ausgelesen, um die liste zu aktualisieren
+                inhalt_string = auslesen()
+                # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
+                inhalt = ast.literal_eval(str(inhalt_string))
+                # hier wird eine neue temporäre liste erstellt
+                # beim for-loop wird das dict in die neue liste eingespeist, um später die übersichtsliste mit dieser liste zu erstellen
+                neue_liste = []
+                for eintrag in inhalt.values():
+                    test = {}
+                    test.update(eintrag)
+                    neue_liste2 = []
+                    for bezeichnung, wert in test.items():
+                        neue_liste2.append([bezeichnung, wert])
+                    neue_liste.append(neue_liste2)
+
+            elif 'bearbeiten' in request.form and "nummer_del" in request.form:
+                # "nummer_del" ist die nummer des eintrags, welcher ausgewählt wurde um zu bearbeiten
+                # aus genau solchen identifizierungsgründen wird in "datenbank.py" jedem eintrag eine nummer gegeben, wenn dieser erstellt wird
+                nummer_del = request.form['nummer_del']
+                # hier wird eine funktion aus "datenbank.py" ausgeführt, um den ausgewählten eintrag zu bearbeiten
+                loeschen_edit(nummer_del)
+
+                # hier wird das dict aus "database_edit.csv" ausgelesen, dies sind die daten des ausgewählten eintrages
+                dict_del_string = auslesen_del()
+                # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
+                dict_del = ast.literal_eval(str(dict_del_string))
+                # hier wird eine neue temporäre liste erstellt
+                # beim for-loop wird das dict in die neue liste eingespeist, um später beim bearbeiten-screen die zu bearbeitenden werte vorzugeben
+                neue_liste = []
+                for eintrag in dict_del.values():
+                    test = {}
+                    test.update(eintrag)
+                    neue_liste2 = []
+                    for bezeichnung, wert in test.items():
+                        neue_liste2.append([bezeichnung, wert])
+                    neue_liste.append(neue_liste2)
+
+                # nachdem "bearbeiten" gedrückt wurde, wird man zum screen von "bodyvalues_edit.html" weitergeleitet
+                # dieser screen zeigt dann die werte die man bearbeiten will
+                return redirect("http://127.0.0.1:5000/bodyvalues_edit", code=302)
+
+            # falls "löschen" oder "bearbeiten" gedrückt wurde aber kein eintrag ausgewählt wurde, wird "else" ausgeführt
+            else:
+                # hier wird das dict aus "database.csv" nochmals ausgelesen, um die liste zu aktualisieren
+                inhalt_string = auslesen()
+                # da es beim auslesen zu einem string wird, wird es hier zu einem dict umgewandelt
+                inhalt = ast.literal_eval(str(inhalt_string))
+                # hier wird eine neue temporäre liste erstellt
+                # beim for-loop wird das dict in die neue liste eingespeist, um später die übersichtsliste mit dieser liste zu erstellen
+                neue_liste = []
+                for eintrag in inhalt.values():
+                    test = {}
+                    test.update(eintrag)
+                    neue_liste2 = []
+                    for bezeichnung, wert in test.items():
+                        neue_liste2.append([bezeichnung, wert])
+                    neue_liste.append(neue_liste2)
+
+        # die zuvor erstellte temporäre liste wird beim return nochmals definiert, um damit im html code eine tabelle mit den daten der liste zu erstellen
+        return render_template('liste_bodyvalues.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Liste Bodyvalues", liste=neue_liste)
 
 
 
@@ -588,85 +824,6 @@ def jogging_edit():
 
 
 
-
-@app.route("/liste_bodyvalues", methods=["GET", "POST"])
-def liste_bodyvalues():
-    if request.method == "GET":
-        inhalt_string = auslesen()
-        inhalt = ast.literal_eval(str(inhalt_string))
-        neue_liste = []
-        for eintrag in inhalt.values():
-            test = {}
-            test.update(eintrag)
-            neue_liste2 = []
-            for bezeichnung, wert in test.items():
-                neue_liste2.append([bezeichnung, wert])
-            neue_liste.append(neue_liste2)
-
-        return render_template('liste_bodyvalues.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Liste Bodyvalues", liste=neue_liste)
-
-    if request.method == "POST":
-        inhalt_string_len = auslesen()
-        inhalt_len = ast.literal_eval(str(inhalt_string_len))
-        if len(inhalt_len) >= 2:
-            if 'löschen' in request.form and "nummer_del" in request.form:
-                nummer_del = request.form['nummer_del']
-                loeschen(nummer_del)
-
-                inhalt_string = auslesen()
-                inhalt = ast.literal_eval(str(inhalt_string))
-                neue_liste = []
-                for eintrag in inhalt.values():
-                    test = {}
-                    test.update(eintrag)
-                    neue_liste2 = []
-                    for bezeichnung, wert in test.items():
-                        neue_liste2.append([bezeichnung, wert])
-                    neue_liste.append(neue_liste2)
-
-            elif 'bearbeiten' in request.form and "nummer_del" in request.form:
-                nummer_del = request.form['nummer_del']
-                loeschen_edit(nummer_del)
-
-                dict_del_string = auslesen_del()
-                dict_del = ast.literal_eval(str(dict_del_string))
-                neue_liste = []
-                for eintrag in dict_del.values():
-                    test = {}
-                    test.update(eintrag)
-                    neue_liste2 = []
-                    for bezeichnung, wert in test.items():
-                        neue_liste2.append([bezeichnung, wert])
-                    neue_liste.append(neue_liste2)
-
-                return redirect("http://127.0.0.1:5000/bodyvalues_edit", code=302)
-
-
-            else:
-                    inhalt_string = auslesen()
-                    inhalt = ast.literal_eval(str(inhalt_string))
-                    neue_liste = []
-                    for eintrag in inhalt.values():
-                        test = {}
-                        test.update(eintrag)
-                        neue_liste2 = []
-                        for bezeichnung, wert in test.items():
-                            neue_liste2.append([bezeichnung, wert])
-                        neue_liste.append(neue_liste2)
-
-        else:
-            inhalt_string = auslesen()
-            inhalt = ast.literal_eval(str(inhalt_string))
-            neue_liste = []
-            for eintrag in inhalt.values():
-                test = {}
-                test.update(eintrag)
-                neue_liste2 = []
-                for bezeichnung, wert in test.items():
-                    neue_liste2.append([bezeichnung, wert])
-                neue_liste.append(neue_liste2)
-
-        return render_template('liste_bodyvalues.html', name=ausgewaehlter_name, username=ausgewaehlter_username, seitentitel="Liste Bodyvalues", liste=neue_liste)
 
 
 
