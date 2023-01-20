@@ -6,8 +6,18 @@ def auslesen():
         inhalt_string = open_file.read()
     return inhalt_string
 
+def auslesen_jogging():
+    with open("database_jogging.csv", "r") as open_file:
+        inhalt_string = open_file.read()
+    return inhalt_string
+
 def auslesen_del():
     with open("database_edit.csv", "r") as open_file:
+        dict_del_string = open_file.read()
+    return dict_del_string
+
+def auslesen_jogging_del():
+    with open("database_jogging_edit.csv", "r") as open_file:
         dict_del_string = open_file.read()
     return dict_del_string
 
@@ -51,6 +61,43 @@ def loeschen(nummer_del):
         open_file.close()
 
 
+def loeschen_jogging(nummer_del):
+    with open("database_jogging.csv", "r") as open_file:
+        inhalt_string = open_file.read()
+        inhalt = ast.literal_eval(str(inhalt_string))
+        open_file.close()
+
+    neue_liste = []
+    for eintrag in inhalt.values():
+        test = {}
+        test.update(eintrag)
+        neue_liste2 = []
+        for bezeichnung, wert in test.items():
+            neue_liste2.append([bezeichnung, wert])
+        neue_liste.append(neue_liste2)
+
+    dict_keep = {}
+    for number in neue_liste:
+        if int(nummer_del) != int(number[4][1]):
+            dict_temp_keep = {number[4][1]: {"datum": number[0][1],
+                                            "strecke": number[1][1],
+                                            "zeit": number[2][1],
+                                            "km_schnitt": round(float(number[2][1]) / float(number[1][1]), 2),
+                                            "nummer": number[4][1], }
+                         }
+            dict_keep.update(dict_temp_keep)
+
+
+    inhalt.clear()
+    inhalt.update(dict_keep)
+    with open("database_jogging.csv", "w") as write_file:
+        inhalt_updated = json.dumps(inhalt)
+        write_file.write(inhalt_updated)
+        open_file.close()
+
+
+
+
 def loeschen_edit(nummer_del):
     with open("database.csv", "r") as open_file:
         inhalt_string = open_file.read()
@@ -87,6 +134,41 @@ def loeschen_edit(nummer_del):
         open_file.close()
 
 
+
+def loeschen_jogging_edit(nummer_del):
+    with open("database_jogging.csv", "r") as open_file:
+        inhalt_string = open_file.read()
+        inhalt = ast.literal_eval(str(inhalt_string))
+        open_file.close()
+
+    neue_liste = []
+    for eintrag in inhalt.values():
+        test = {}
+        test.update(eintrag)
+        neue_liste2 = []
+        for bezeichnung, wert in test.items():
+            neue_liste2.append([bezeichnung, wert])
+        neue_liste.append(neue_liste2)
+
+    dict_del = {}
+    for number in neue_liste:
+        if int(nummer_del) == int(number[4][1]):
+            dict_temp_del = {number[4][1]: {"datum": number[0][1],
+                                        "strecke": number[1][1],
+                                        "zeit": number[2][1],
+                                        "km_schnitt": round(float(number[2][1]) / float(number[1][1]), 2),
+                                        "nummer": number[4][1], }
+                         }
+            dict_del.update(dict_temp_del)
+
+    with open("database_jogging_edit.csv", "w") as write_file:
+        dict_del_updated = json.dumps(dict_del)
+        write_file.write(dict_del_updated)
+        open_file.close()
+
+
+
+
 def abspeichern_edit(datum, gewicht, bodyfat, tbw, muskeln, bmi, nummer):
     with open("database.csv", "r") as open_file:
         inhalt_string = open_file.read()
@@ -106,6 +188,25 @@ def abspeichern_edit(datum, gewicht, bodyfat, tbw, muskeln, bmi, nummer):
     inhalt.update(new_content)
 
     with open("database.csv", "w") as write_file:
+        inhalt_updated = json.dumps(inhalt)
+        write_file.write(inhalt_updated)
+
+
+def abspeichern_jogging_edit(datum, strecke, zeit, nummer):
+    with open("database_jogging.csv", "r") as open_file:
+        inhalt_string = open_file.read()
+        inhalt = ast.literal_eval(str(inhalt_string))
+        open_file.close()
+
+    new_content = {nummer: {"datum": datum,
+                                      "strecke": strecke,
+                                      "zeit": zeit,
+                                      "km_schnitt": round(float(zeit) / float(strecke), 2),
+                                      "nummer": nummer, }
+                   }
+    inhalt.update(new_content)
+
+    with open("database_jogging.csv", "w") as write_file:
         inhalt_updated = json.dumps(inhalt)
         write_file.write(inhalt_updated)
 
@@ -130,5 +231,26 @@ def abspeichern(datum, gewicht, bodyfat, tbw, muskeln, bmi):
                    }
     inhalt.update(new_content)
     with open("database.csv", "w") as write_file:
+        inhalt_updated = json.dumps(inhalt)
+        write_file.write(inhalt_updated)
+
+
+
+def abspeichern_jogging(datum, strecke, zeit):
+    with open("database_jogging.csv", "r") as open_file:
+        inhalt_string = open_file.read()
+        inhalt = ast.literal_eval(str(inhalt_string))
+        open_file.close()
+
+    last_key = list(inhalt)[-1]
+    new_entry_number = int(last_key) + 1
+    new_content = {new_entry_number: {"datum": datum,
+                                      "strecke": strecke,
+                                      "zeit": zeit,
+                                      "km_schnitt": round(float(zeit) / float(strecke), 2),
+                                      "nummer": new_entry_number, }
+                   }
+    inhalt.update(new_content)
+    with open("database_jogging.csv", "w") as write_file:
         inhalt_updated = json.dumps(inhalt)
         write_file.write(inhalt_updated)
