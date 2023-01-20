@@ -7,12 +7,13 @@
 
 <div class="container1">
 
-
+<!-- hier wird mit jinja die navbar eingefügt -->
 {% include "header.jinja"%}
 
     <div class="container2">
-    <h1>Hallo <span class="rot_text_h1">{{ name }}</span>,<br></h1>
-    <h2>hier findest du <span class="rot_text_h2">Listen</span>!</h2>
+        <!-- hier wird der in main.py definierte name eingefügt -->
+        <h1>Hallo <span class="rot_text_h1">{{ name }}</span>,<br></h1>
+        <h2>hier findest du <span class="rot_text_h2">Listen</span>!</h2>
     </div>
 
 
@@ -23,10 +24,12 @@
 
     <div class="container3">
         <a class="item2" href="liste_jogging">
+            <!-- hier wird ein image reingeladen -->
             <img src="{{ url_for('static', filename='images/cardio.png') }}" style="width:40px;height:40px;">
             jogging
         </a>
         <a class="item2" href="liste_bodyvalues">
+            <!-- hier wird ein image reingeladen -->
             <img src="{{ url_for('static', filename='images/body_values.png') }}" style="width:40px;height:40px;">
             body values
         </a>
@@ -37,7 +40,7 @@
 
 
 </div>
-
+<!-- hier wird mit jinja der footer eingefügt -->
 {% include "footer.jinja"%}
 </body>
 

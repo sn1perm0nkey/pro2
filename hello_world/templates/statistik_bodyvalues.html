@@ -6,15 +6,17 @@
 <body>
 
 <div class="container1">
+    <!-- hier wird mit jinja die navbar eingefügt -->
     {% include "header.jinja"%}
     <div class="container2">
-      <h1>Hallo <span class="rot_text_h1">{{ name }}</span>,<br></h1>
-      <h2>hier siehst du die Statistiken zu den body values!</h2>
+        <!-- hier wird der in main.py definierte name eingefügt -->
+        <h1>Hallo <span class="rot_text_h1">{{ name }}</span>,<br></h1>
+        <h2>hier siehst du die Statistiken zu den body values!</h2>
     </div>
     <div class="container2">
       <h3>Statistiken zu den body values:</h3>
     </div>
-
+    <!-- hier werden die statistiken reingeladen -->
     <div class="container2">
         {{ barchart_gewicht | safe }}
         {{ barchart_bodyfat | safe }}
@@ -25,7 +27,7 @@
         {{ barchart_bmi | safe }}
     </div>
 </div>
-
+<!-- hier wird mit jinja der footer eingefügt -->
 {% include "footer.jinja"%}
 </body>
 

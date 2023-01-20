@@ -6,9 +6,11 @@
 <body>
 
   <div class="container1">
+    <!-- hier wird mit jinja die navbar eingefügt -->
     {% include "header.jinja"%}
 
     <div class="container2">
+      <!-- hier wird der in main.py definierte name eingefügt -->
       <h1>Hallo <span class="rot_text_h1">{{ name }}</span>,<br></h1>
       <h2>hier siehst du die Einträge zu den body values!</h2>
     </div>
@@ -31,15 +33,18 @@
         <th>min/km</th>
         <th>Auswählen</th>
       </tr>
+          <!-- hier wird ein loop gestartet, um alle daten in die tabelle einzufügen -->
           {% for eintrag in liste %}
       <tr>
+        <!-- hier werden die daten in die tabelle eingefügt -->
         <td>{{ eintrag[0][1] }}</td>
         <td>{{ eintrag[1][1] }}</td>
         <td>{{ eintrag[2][1] }}</td>
         <td>{{ eintrag[3][1] }}</td>
         <td><input type="radio" id="id" name="nummer_del" value="{{ eintrag[4][1] }}"></td>
       </tr>
-    {% endfor %}
+      <!-- hier wird der loop beendet -->
+      {% endfor %}
     </table>
       </div>
     <br>
@@ -52,7 +57,8 @@
         </div>
     </form>
       </div>
-{% include "footer.jinja"%}
+    <!-- hier wird mit jinja der footer eingefügt -->
+    {% include "footer.jinja"%}
     </div>
 
 </body>

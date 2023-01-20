@@ -6,8 +6,10 @@
 <body>
 
 <div class="container1">
+  <!-- hier wird mit jinja die navbar eingefügt -->
   {% include "header.jinja"%}
   <div class="container2">
+    <!-- hier wird der in main.py definierte name eingefügt -->
     <h1>Hallo <span class="rot_text_h1">{{ name }}</span>,<br></h1>
     <h2>hier kannst du neue body values eingeben!</h2>
   </div>
@@ -57,7 +59,7 @@
     </div>
   </div>
 </div>
-
+<!-- hier wird mit jinja der footer eingefügt -->
 {% include "footer.jinja"%}
 </div>
 </body>

@@ -6,21 +6,23 @@
 <body>
 
 <div class="container1">
+  <!-- hier wird mit jinja die navbar eingefügt -->
   {% include "header.jinja"%}
   <div class="container2">
     <div class="container2">
-    <h1>Hallo <span class="rot_text_h1">{{ name }}</span>,<br></h1>
-    <h2>hier kannst du den body values Eintrag bearbeiten!</h2>
-  </div>
+      <!-- hier wird der in main.py definierte name eingefügt -->
+      <h1>Hallo <span class="rot_text_h1">{{ name }}</span>,<br></h1>
+      <h2>hier kannst du den body values Eintrag bearbeiten!</h2>
+    </div>
 
-<div>
+  <div>
     <div class="container2">
       <h3>Eintrag bearbeiten:</h3>
     </div>
 
     <div class="container2">
       <form method="POST">
-
+      <!-- hier wird ein loop gestartet, um die zu bearbeitenden werte als value vorzugeben -->
       {% for eintrag in liste %}
 
       <div class="row">
@@ -28,28 +30,31 @@
           <label for="datum">Datum der Daten</label>
         </div>
         <div class="col-75">
+          <!-- hier wird der definierte wert als value vorgegeben -->
           <input type="date" id="datum" name="datum" value="{{ eintrag[0][1] }}" autofocus>
         </div>
       </div>
 
       <div class="row">
         <div class="col-25">
-          <label for="gewicht">Strecke in km</label>
+          <label for="strecke">Strecke in km</label>
         </div>
         <div class="col-75">
+          <!-- hier wird der definierte wert als value vorgegeben -->
           <input type="number" step="0.01" id="strecke" name="strecke" value="{{ eintrag[1][1] }}">
         </div>
       </div>
 
       <div class="row">
         <div class="col-25">
-          <label for="koerperfett">Zeit in Minuten</label>
+          <label for="zeit">Zeit in Minuten</label>
         </div>
         <div class="col-75">
+          <!-- hier wird der definierte wert als value vorgegeben -->
           <input type="number" step="0.01" id="zeit" name="zeit" value="{{ eintrag[2][1] }}">
         </div>
       </div>
-
+        <!-- hier wird der loop wieder beendet -->
         {% endfor %}
 
       <br>
@@ -63,7 +68,7 @@
     </div>
   </div>
 </div>
-
+<!-- hier wird mit jinja der footer eingefügt -->
 {% include "footer.jinja"%}
 </div>
 </body>
