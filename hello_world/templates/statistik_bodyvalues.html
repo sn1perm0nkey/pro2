@@ -8,6 +8,14 @@
 <div class="container1">
     {% include "header.jinja"%}
     <div class="container2">
+      <h1>Hallo <span class="rot_text_h1">{{ name }}</span>,<br></h1>
+      <h2>hier siehst du die Statistiken zu den body values!</h2>
+    </div>
+    <div class="container2">
+      <h3>Statistiken zu den body values:</h3>
+    </div>
+
+    <div class="container2">
         {{ barchart_gewicht | safe }}
         {{ barchart_bodyfat | safe }}
         {{ barchart_fettgewicht | safe }}

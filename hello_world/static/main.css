@@ -28,6 +28,13 @@ h1 {
     font-size: 48px;
 }
 
+.rot_text_h2 {
+    font-family: Albert Sans;
+    color: #d21d34;
+    font-weight: bold;
+    font-size: 36px;
+}
+
 h2 {
     font-family: Albert Sans;
     color: #FEFEFE;
