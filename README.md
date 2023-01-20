@@ -2,16 +2,14 @@
 
 ## Projektidee
 Ich habe im Sommer 2022 mich öfters gewogen und bin (viel weniger :D) joggen gegangen. Ich habe soviel bzw. wenig gegessen, dass ich ein Kaloriendefizit hatte. Die Daten vom wiegen und joggen habe ich festgehalten.
-Ich wollte nun ein Tool erstellen, bei dem ich diese Daten eingeben kann und dann Statistiken sowie eine schöne Darstellung der Einträge sehen kann. Zusätzlich ist auch noch der Hintergedanke, dass ich wieder damit beginne, die Daten festzuhalten. Dabei kann ich dieses Tool dann wieder verwenden.
+Ich wollte nun ein Tool erstellen, bei dem ich diese Daten eingeben kann und dann Statistiken sowie eine schöne Darstellung der Einträge sehen kann. Zusätzlich ist auch noch der Hintergedanke, dass ich wieder damit beginne, meine Daten festzuhalten. Dabei kann ich dieses Tool dann verwenden.
 
 ## Installation
-Wenn man im Bereich des Repository ist, muss man in den Reiter "Code" gehen. Dort ist ein Dropdown-Button der ebenfalls "Code" heisst vorzufinden. Nachdem man auf diesen geklickt hat, kann man die angezeigte URL kopieren.
+Wenn man auf github im Bereich des Repositorys ist, muss man in den Reiter "Code" gehen. Dort ist ein Dropdown-Button der ebenfalls "Code" heisst vorzufinden. Nachdem man auf diesen geklickt hat, kann man die angezeigte URL kopieren.
 
 Ich empfehle, die Community Version von PyCharm zu verwenden. PyCharm muss zwingend richtig aufgesetzt sein, das heisst Python MUSS ebenfalls installiert und mit PyCharm verbunden sein. Wenn man PyCharm öffnet, kann man dann auf "Get from VCS" klicken. Danach muss man bei "Version control" "Git" auswählen. Beim Feld von "URL" kann man nun die zuvor kopierte URL einfügen. Im nächsten Schritt muss man noch den Ordner auswählen, in welchem das lokale Repository erstellt werden soll. Um abzuschliessen muss man nun noch auf "Clone" klicken.
 
-Um das Projekt zu starten, muss man oben rechts "main" einstellen und auf das "Play Symbol", also "Run 'main', klicken. Nun erscheint in der Konsole ein Link. Man muss nun lediglich noch auf diesen Link klicken und dann öffnet sich auch schon dieses Projekt.
-
-***
+Um das Projekt zu starten, muss man oben rechts "main" einstellen und auf das "Play Symbol", also "Run 'main'", klicken. Nun erscheint in der Konsole ein Link. Man muss nun lediglich noch auf diesen Link klicken und dann öffnet sich auch schon dieses Projekt.
 
 ## Funktionen und Benutzung
 ### Dateneingabe
@@ -21,11 +19,11 @@ Nachdem man eine Kategorie ausgewählt hat, kann man die vorher genannten Daten 
 
 ### Datenausgabe
 Bei der Navbar kann man nun noch entweder auf "statistik" oder auf "listen" klicken. Bei beiden Seiten kann man wie zuvor schon die Kategorie auswählen.
-Bei "statistik" sieht man nun Liniendiagramme, welche aus denn eingespiesenen Daten erzeugt werden.
-Bei "listen" sieht man nun die übersichtliche Auflistung der eingespiesenen Daten. Dieses Programm erzeugt aus den eingespiesenen Daten auch noch neue Daten wie z.B. der Körperfettanteil in kg. Diese neuen Daten sind ebenfalls in der Tabelle sowie in den Statistiken zu finden.
+Bei "statistik" sieht man Liniendiagramme, welche aus den eingespiesenen Daten erzeugt werden.
+Bei "listen" sieht man die übersichtliche Auflistung der eingespiesenen Daten. Dieses Programm erzeugt aus den eingespiesenen Daten auch noch neue Daten wie z.B. der Körperfettanteil in kg. Diese neuen Daten sind ebenfalls in der Tabelle sowie in den Statistiken zu finden.
 
 ### Datenverarbeitung
-Bei "listen" gibt es noch weitere Funktionen. Man kann in der Spalte "Auswählen auf den Radiobutton klicken. Ist dieser nun rot, so ist diese Zeile ausgewählt. Man kann nun unter der Tabelle entweder auf "Bearbeiten" oder auf "Löschen" klicken.
+Bei "listen" gibt es noch weitere Funktionen. Man kann in der Spalte "Auswählen" auf den Radiobutton klicken. Ist dieser rot, so ist diese Zeile ausgewählt. Man kann nun unter der Tabelle entweder auf "Bearbeiten" oder auf "Löschen" klicken.
 Klickt man auf "Bearbeiten", so kommt erneut das Eingabeformular. Hier kann man die Daten des Eintrags, welcher ausgewählt war, anpassen, falls diese z.B. falsch sind. Wenn man auf Abbrechen klickt, wird die Änderung abgebrochen und nicht abgespeichert. Wenn man auf Senden klickt, werden die Daten des Eintrags aktualisiert.
 Klickt man unter der Liste auf "Löschen", so wird der ausgewählte Eintrag entfernt.
 
